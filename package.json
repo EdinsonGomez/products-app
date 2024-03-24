@@ -1,0 +1,22 @@
+{
+  "name": "product-app",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "dev": "dotenv -- turbo run dev",
+    "db:generate": "dotenv -- turbo run db:generate",
+    "db:push": "dotenv -- turbo run db:push",
+    "db:seed": "dotenv -- turbo run db:seed",
+    "server:dev": "dotenv -- turbo run dev --filter api"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "dotenv-cli": "^7.4.1"
+  },
+  "devDependencies": {
+    "turbo": "^1.13.0"
+  }
+}
