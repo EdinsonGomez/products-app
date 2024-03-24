@@ -1,18 +1,18 @@
-import { prisma } from '../index.js';productappadmin
+import { prisma } from '../index.js';
 
 async function main() {
   await prisma.roles.create({
     data: {
-      name: "Admin"
+      name: "admin"
     }
   });
 
   await prisma.user.create({
     data: {
       email: 'admin@product-app.com',
-      name: "Admin",
+      name: "Administrador",
       last_name: "User",
-      // 
+      // productappadmin
       password: '$2a$10$CiPMAw6V2EOydKISNRCWe.xtq8tFr/vInrAamfljnaMsCcKQL2qoS',
       rol_id: 1
     }

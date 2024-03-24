@@ -9,7 +9,6 @@ export const verifyToken = (authRoles = []) => async (req, res, next) => {
     const token = authHeader.split(" ")[1];
 
     if (!token || !authRoles.length) return res.status(401).send({ error: 'Access denied' });
-    console.log(token);
 
     const decodeToken = jwt.verify(token, JWT_SECRET_KEY);
 

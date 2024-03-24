@@ -7,15 +7,17 @@ const JWT_SECRET_KEY = process.env.JWT_SECRET_KEY;
 
 export const loginUser = async (req, res) => {
   try {
-    const credentials = req.headers.authorization;
+    // const credentials = req.headers.authorization;
+    const credentials = req.body;
   
     if (!credentials) return res.status(404).send({ error: 'Empty credentials' });
   
-    const decodedCredentials = atob(credentials.split(' ')[1]);
-    const [email, password] = decodedCredentials.split(':');
+    // const decodedCredentials = atob(credentials.split(' ')[1]);
+    // const [email, password] = decodedCredentials.split(':');
+    const { username, password } = credentials;
     
     const user = await prisma.user.findFirst({
-      where: { email },
+      where: { email: username },
       include: {
         rol: true
       }
@@ -39,10 +41,12 @@ export const loginUser = async (req, res) => {
         expiresIn: '12h'
       }
     );
+
+    delete user.password;
   
     return res.status(200).send({ token, user });
   } catch(error) {
     console.error('[Login Error]: ', error);
-    return res.status(400).send({ error: error.message });
+    return res.status(400).send({ error: error });
   }
 }
