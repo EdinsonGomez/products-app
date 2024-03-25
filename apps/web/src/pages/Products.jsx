@@ -1,6 +1,8 @@
+import ProductsList from "@/components/productsList/ProductsList"
+
 function ProductsPage() {
   return (
-    <h1>Products Page</h1>
+    <ProductsList />
   )
 }
 
