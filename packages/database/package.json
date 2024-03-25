@@ -11,12 +11,14 @@
     "db:migrate:dev": "prisma migrate dev",
     "db:generate": "prisma generate",
     "db:push": "prisma db push --skip-generate",
-    "db:seed": "node src/seed.js"
+    "db:seed": "node src/seed.js",
+    "db:seed:products": "node src/seed-products.js"
   },
   "dependencies": {
     "@prisma/client": "^5.11.0"
   },
   "devDependencies": {
+    "@faker-js/faker": "^8.4.1",
     "prisma": "^5.11.0"
   }
 }

@@ -11,9 +11,11 @@ export const fetchProducts = createAsyncThunk(
 )
 
 const initialState = {
-  list: [],
-  status: '',
-  error: null
+  list: {
+    data: [],
+    status: '',
+    error: null
+  },
 };
 
 export const productsSlice = createSlice({
@@ -22,18 +24,29 @@ export const productsSlice = createSlice({
   reducers: {},
   extraReducers: (builder) => {
     builder.addCase(fetchProducts.pending, (state) => {
-      state.status = 'loading'
+      state.list = {
+        data: [],
+        status: 'loading',
+        error: null
+      }
     });
 
     builder.addCase(fetchProducts.rejected, (state, action) => {
-      state.status = 'rejected';
-      state.error = action.error?.message ?? 'Internal Server Error'
+      const error = action.error?.message ?? 'Internal Server Error';
+
+      state.list = {
+        error,
+        data: [],
+        status: 'rejected',
+      }
     });
 
     builder.addCase(fetchProducts.fulfilled, (state, action) => {
-      state.error = null;
-      state.status = 'succeeded';
-      state.list = action.payload;
+      state.list = {
+        data: action.payload,
+        error: null,
+        status: 'succeeded'
+      }
     });
   }
 });

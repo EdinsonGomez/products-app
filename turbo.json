@@ -12,6 +12,7 @@
     "db:push": {
       "dependsOn": ["^db:generate"]
     },
-    "db:seed": {}
+    "db:seed": {},
+    "db:seed:products": {}
   }
 }

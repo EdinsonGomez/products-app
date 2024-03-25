@@ -16,7 +16,7 @@ async function main() {
       password: '$2a$10$CiPMAw6V2EOydKISNRCWe.xtq8tFr/vInrAamfljnaMsCcKQL2qoS',
       rol_id: 1
     }
-  })
+  });
 }
 
 main()

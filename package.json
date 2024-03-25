@@ -8,6 +8,7 @@
     "db:generate": "dotenv -- turbo run db:generate",
     "db:push": "dotenv -- turbo run db:push",
     "db:seed": "dotenv -- turbo run db:seed",
+    "db:seed:products": "dotenv -- turbo run db:seed:products",
     "server:dev": "dotenv -- turbo run dev --filter api",
     "web:dev": "turbo run dev --filter web"
   },

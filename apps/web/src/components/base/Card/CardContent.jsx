@@ -1,6 +1,6 @@
 function CardContent({ children }) {
   return (
-    <div>{children}</div>
+    <div className="h-full px-2">{children}</div>
   )
 }
 
