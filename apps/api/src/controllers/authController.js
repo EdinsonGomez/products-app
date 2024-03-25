@@ -44,7 +44,7 @@ export const loginUser = async (req, res) => {
 
     delete user.password;
   
-    return res.status(200).send({ token, user });
+    return res.status(200).send({ token, ...user });
   } catch(error) {
     console.error('[Login Error]: ', error);
     return res.status(400).send({ error: error });

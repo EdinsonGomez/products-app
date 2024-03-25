@@ -8,6 +8,7 @@ body,
   background-color: #e5e5e5;
 }
 
-input:focus-visible {
+input:focus-visible,
+textarea:focus-visible {
   outline: none;
 }

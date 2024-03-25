@@ -19,8 +19,11 @@ function ProductsItem({ data }) {
         <CardContent>
           <div className="flex flex-col gap-2 h-full">
             <p className="text-2xl font-bold">{data?.name ?? ''}</p>
-            <p className="grow mt-5 text-md text-black/60 max-h-28 line-clamp-4 overflow-hidden">{data?.description ?? ''}</p>
-            <span className="mt-3 text-2xl font-semibold">{formatPrice(data?.price)}</span>
+            <p className="mt-5 text-md text-black/60 max-h-28 line-clamp-4 overflow-hidden">{data?.description ?? ''}</p>
+            <div className="flex mt-auto items-center gap-x-1">
+              <span className="mt-3 text-2xl font-semibold">{formatPrice(data?.price)}</span>
+              <small className="self-center">COP</small>
+            </div>
           </div>
         </CardContent>
       </Card>

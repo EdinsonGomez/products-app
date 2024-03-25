@@ -3,7 +3,11 @@ import * as productsManager from '../managers/productsManager.js';
 
 export const getProducts = async (req, res) => {
   try {
-    const products = await prisma.products.findMany();
+    const products = await prisma.products.findMany({
+      orderBy: {
+        id: 'desc'
+      }
+    });
 
     return res.status(200).send(products);
   } catch(error) {

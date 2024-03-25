@@ -7,13 +7,13 @@ function UserSection() {
 
   return (
     <>
-      {login?.user?.email ? (
+      {login?.token ? (
         <div className="flex flex-col justify-center items-center gap-y-1">
           <img
-            src={`https://avatar.iran.liara.run/username?username=${login?.user?.name + login?.user?.last_name}`}
+            src={`https://avatar.iran.liara.run/username?username=${login?.name + login?.last_name}`}
             width={45}
           />
-          <small className="text-xs text-black/60">{login?.user.email}</small>
+          <small className="text-xs text-black/60">{login?.email}</small>
         </div>
       ) : (
         <Button

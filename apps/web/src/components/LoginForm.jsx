@@ -12,8 +12,9 @@ function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { status: fetchStatus } = useSelector((state) => state.auth);
+  const { status: fetchStatus, error } = useSelector((state) => state.auth);
 
+  const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState({
     username: '',
     password: ''
@@ -63,15 +64,28 @@ function LoginForm() {
         <FormLabel htmlFor="password">
           Contraseña
         </FormLabel>
-        <InputText
-          value={loginData.password}
-          onChange={onChange('password')}
-          type="password"
-          id="password"
-          placeholder="Contraseña"
-          required
-        />
+        <div className="flex items-center w-full border-2 rounded-md pr-2">
+          <InputText
+            className="border-0 grow"
+            value={loginData.password}
+            onChange={onChange('password')}
+            type={showPassword ? 'text' : 'password'}
+            id="password"
+            placeholder="Contraseña"
+            required
+          />
+          <div className="hover:cursor-pointer">
+            {showPassword ? (
+              <span className="material-symbols-outlined" onClick={() => setShowPassword(false)}>visibility_off</span>
+            ) : (
+              <span className="material-symbols-outlined" onClick={() => setShowPassword(true)}>visibility</span>
+            )}
+          </div>
+        </div>
       </FormControl>
+      {fetchStatus === 'failed' && !!error ? (
+        <p className="text-rose-500 text-center">{error}</p>
+      ) : null}
       <Button
         type="submit"
         disabled={fetchStatus === 'loading'}
