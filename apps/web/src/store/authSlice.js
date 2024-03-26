@@ -13,30 +13,56 @@ export const fetchLoginUser = createAsyncThunk(
 )
 
 const initialState = {
-  login: null,
-  status: '',
-  error: null
+  login: {
+    user: null,
+    status: '',
+    error: null
+  }
 };
 
 export const authSlice = createSlice({
   name: 'auth',
   initialState,
-  reducers: {},
+  reducers: {
+    signOff: (state) => {
+      localStorage.removeItem('token');
+
+      state.login = {
+        user: null,
+        status: '',
+        error: null
+      }
+    }
+  },
   extraReducers: (builder) => {
     builder.addCase(fetchLoginUser.pending, (state) => {
-      state.status = 'loading'
+      state.login = {
+        user: null,
+        status: 'loading',
+        error: null,
+      }
     });
 
     builder.addCase(fetchLoginUser.rejected, (state, action) => {
-      state.status = 'failed';
-      state.error = action.error?.message ?? 'Internal server error'
+      const message = action.error?.message ?? 'Internal server error';
+
+      state.login = {
+        user: null,
+        status: 'failed',
+        error: message
+      };
     });
 
     builder.addCase(fetchLoginUser.fulfilled, (state, action) => {
-      state.status = 'succeeded';
-      state.login = action.payload;
+      state.login = {
+        user: action.payload,
+        status: 'succeeded',
+        error: null
+      }
     });
   }
 });
+
+export const { signOff } = authSlice.actions;
 
 export default authSlice.reducer;

@@ -12,7 +12,7 @@ function LoginForm() {
   const dispatch = useDispatch();
   const navigate = useNavigate();
 
-  const { status: fetchStatus, error } = useSelector((state) => state.auth);
+  const { login } = useSelector((state) => state.auth);
 
   const [showPassword, setShowPassword] = useState(false);
   const [loginData, setLoginData] = useState({
@@ -36,11 +36,11 @@ function LoginForm() {
   }
 
   useEffect(() => {
-    if (loginData && fetchStatus === 'succeeded') {
+    if (loginData && login.status === 'succeeded') {
       navigate('/app/products');
     }
   // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [fetchStatus]);
+  }, [login.status]);
 
   return (
     <form
@@ -49,7 +49,7 @@ function LoginForm() {
     >
       <FormControl>
         <FormLabel htmlFor="username">
-          Correo electrónico
+          Correo electrónico*
         </FormLabel>
         <InputText
           value={loginData.username}
@@ -62,11 +62,11 @@ function LoginForm() {
       </FormControl>
       <FormControl>
         <FormLabel htmlFor="password">
-          Contraseña
+          Contraseña*
         </FormLabel>
-        <div className="flex items-center w-full border-2 rounded-md pr-2">
+        <div className="flex items-center w-full border-2 border-neutral-200 rounded-md pr-2 focus:border-neutral-300">
           <InputText
-            className="border-0 grow"
+            className="!border-0 grow focus:border-0"
             value={loginData.password}
             onChange={onChange('password')}
             type={showPassword ? 'text' : 'password'}
@@ -83,12 +83,12 @@ function LoginForm() {
           </div>
         </div>
       </FormControl>
-      {fetchStatus === 'failed' && !!error ? (
-        <p className="text-rose-500 text-center">{error}</p>
+      {login.status === 'failed' && !!login?.error ? (
+        <p className="text-rose-500 text-center">{login?.error}</p>
       ) : null}
       <Button
         type="submit"
-        disabled={fetchStatus === 'loading'}
+        disabled={login.status === 'loading'}
       >
         Ingresar
       </Button>
