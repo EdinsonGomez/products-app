@@ -46,11 +46,15 @@ function CreateProductModal({
                     >
                       <div className="flex justify-end gap-x-4 mt-4">
                         <Button
-                          type="submit"
+                          type="button"
+                          onClick={onClose}
+                          outlined
                         >
                           Cancelar
                         </Button>
-                        <Button>
+                        <Button
+                          type="submit"
+                        >
                           Crear
                         </Button>
                       </div>

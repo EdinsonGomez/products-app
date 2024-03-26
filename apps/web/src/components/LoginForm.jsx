@@ -74,7 +74,7 @@ function LoginForm() {
             placeholder="Contraseña"
             required
           />
-          <div className="hover:cursor-pointer">
+          <div className="hover:cursor-pointer flex flex-col items-center">
             {showPassword ? (
               <span className="material-symbols-outlined" onClick={() => setShowPassword(false)}>visibility_off</span>
             ) : (

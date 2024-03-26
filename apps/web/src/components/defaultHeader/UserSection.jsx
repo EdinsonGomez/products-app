@@ -5,6 +5,8 @@ import { Link } from "react-router-dom";
 import { Menu, Transition } from "@headlessui/react";
 import { useDispatch } from "react-redux";
 import { signOff } from '@/store/authSlice';
+import { useMemo } from "react";
+import clsx from "clsx";
 
 function UserSection() {
   const dispatch = useDispatch();
@@ -13,13 +15,23 @@ function UserSection() {
 
   const onSignOff = () => {
     dispatch(signOff());
-  }
+  };
+
+  const userData = useMemo(() => {
+    return {
+      name: `${login?.user?.name ?? ''} ${login?.user?.last_name}`,
+      email: login?.user?.email ?? '',
+      rol: login?.user?.rol?.name ?? ''
+    }
+  }, [login.user])
 
   return (
     <>
       {!login?.user?.token ? (
         <Button
           type="button"
+          className="!text-indigo-700 font-semibold"
+          text
         >
           <Link to="/login">
             Iniciar sesión
@@ -33,7 +45,6 @@ function UserSection() {
                 src={`https://avatar.iran.liara.run/username?username=${login?.user?.name + login?.user?.last_name}`}
                 width={45}
               />
-              <small className="text-xs text-black/60">{login?.user?.email}</small>
             </Menu.Button>
           </div>
           <Transition
@@ -47,16 +58,29 @@ function UserSection() {
           >
             <Menu.Items className="absolute right-0 mt-2 w-56 origin-top-right divide-y  rounded-md bg-white shadow-lg ring-1 ring-black/5 focus:outline-none">
               <div className="py-3 px-4 flex flex-col gap-4">
-                <Menu.Item>
-                  <span className="capitalize">{login?.user?.rol?.name ?? ''}</span>
+                <Menu.Item className="pb-2">
+                  <div className="flex items-center gap-x-4">
+                    <div className="flex flex-col grow">
+                      <span className="text-sm">{userData.name}</span>
+                      <span className="text-xs">{userData.email}</span>
+                    </div>
+                    <span
+                      className={clsx(
+                        'text-xs py-1 px-2 rounded-full capitalize bg-neutral-300',
+                        {
+                          'bg-rose-700 text-white': userData.rol === 'admin'
+                        }
+                      )}
+                    >
+                      {userData.rol}
+                    </span>
+                  </div>
                 </Menu.Item>
-                <Menu.Item className="border-t-2 border-neutral-100 pt-2">
-                  <span
-                    className="hover:cursor-pointer"
-                    onClick={onSignOff}
-                  >
-                    Cerrar sesion
-                  </span>
+                <Menu.Item className="border-t-2 border-neutral-200 pt-2 hover:cursor-pointer">
+                  <div className="flex items-center gap-x-1" onClick={onSignOff}>
+                    <span className="material-symbols-outlined">logout</span>
+                    <span>Cerrar sesion</span>
+                  </div>
                 </Menu.Item>
               </div>
             </Menu.Items>
